@@ -16,7 +16,7 @@ class AlviMaps_Admin {
 			register_setting('alvimaps_settings', 'dayEndsAt');
 
 			add_settings_section('alvimaps_parameters_section', 'Paramètres du plugin', array($this, 'section_html'), 'alvimaps_settings');
-			add_settings_field('centralPoint', 'Adresse de départ', array($this, 'centralPointHtml'), 'alvimaps_settings', 'alvimaps_parameters_section');
+			add_settings_field('centralPoint', 'Centrage de la carte', array($this, 'centralPointHtml'), 'alvimaps_settings', 'alvimaps_parameters_section');
 			add_settings_field('dailyPrice', 'Tarif de jour au kilomètre', array($this, 'dailyPriceHtml'), 'alvimaps_settings', 'alvimaps_parameters_section');
 			add_settings_field('nightlyPrice', 'Tarif de nuit au kilomètre', array($this, 'nightlyPriceHtml'), 'alvimaps_settings', 'alvimaps_parameters_section');
 			add_settings_field('dayBeginsAt', 'La journée commence à', array($this, 'dayBeginsAtHtml'), 'alvimaps_settings', 'alvimaps_parameters_section');
@@ -29,7 +29,7 @@ class AlviMaps_Admin {
 
 	public function centralPointHtml() {
 		?>
-		<input type="text" name="centralPoint" id="alvi_admin" value="<?php echo get_option('centralPoint') ?>" />
+		<input type="text" name="centralPoint" id="alvi_admin" style="width:500px;" value="<?php echo get_option('centralPoint') ?>" />
 		<?php
 	}
 
@@ -59,10 +59,10 @@ class AlviMaps_Admin {
 
 	public function add_admin_menu()
 	{
-	    add_menu_page('AlviAdmin', 'AlviMaps', 'manage_options', 'zero', array($this, 'menu_html'));
+    add_menu_page('AlviAdmin', 'AlviMaps', 'manage_options', 'zero', array($this, 'menu_html'));
 
-	    /*ar	Arabic
-	    ja	Japanese
+    /*ar	Arabic
+    ja	Japanese
 		bg	Bulgarian
 		kn	Kannada
 		bn	Bengali
