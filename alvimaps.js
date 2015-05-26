@@ -9,21 +9,26 @@ function initialize() {
   bounds = new google.maps.LatLngBounds(null);
   geocoder = new google.maps.Geocoder();
 
-  var mapOptions = {
-    zoom: 18,
-    center: new google.maps.LatLng(43.5880681, 7.0410248),
-    disableDefaultUI: true
-  };
   var mapElement = document.getElementById('map-canvas');
-  if(!_.isUndefined(mapElement))
+  if(mapElement !== null)
+  {
+    var mapOptions = {
+      zoom: 18,
+      center: new google.maps.LatLng(43.5880681, 7.0410248),
+      disableDefaultUI: true
+    };
     map = new google.maps.Map(mapElement, mapOptions);
-
+  }
   var input = document.getElementById('alvi_origin');
   var input2 = document.getElementById('alvi_destination');
   var input3 = document.getElementById('alvi_admin');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-  var autocomplete2 = new google.maps.places.Autocomplete(input2);
-  var autocomplete3 = new google.maps.places.Autocomplete(input3);
+
+  if(input !== null)
+    new google.maps.places.Autocomplete(input);
+  if(input2 !== null)
+    new google.maps.places.Autocomplete(input2);
+  if(input3 !== null)
+    new google.maps.places.Autocomplete(input3);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

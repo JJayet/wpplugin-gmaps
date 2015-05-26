@@ -6,29 +6,29 @@
       }
 
       public function get_datas_from_google($origin, $destination) {
-  		$request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".$origin."&destinations=".$destination."&language=fr";
-  		$response = file_get_contents($request);
-  	    return json_decode($response);
-  	}
+  		    $request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".$origin."&destinations=".$destination."&language=fr";
+          $response = file_get_contents($request);
+          return json_decode($response);
+  	   }
 
       public function widget($args, $instance) {
         echo $args['before_widget'];
-  	    echo $args['before_title'];
-  	    echo apply_filters('widget_title', $instance['title']);
-  	    echo $args['after_title'];
-  	    $distance = "";
-  	    $origin = "";
-  	    $destination = "";
-  	    if (isset($_POST['alvi_origin']) && isset($_POST['alvi_destination'])) {
-  	    	$datas = $this->get_datas_from_google($_POST['alvi_origin'], $_POST['alvi_destination']);
-  	    	$origin = $datas->origin_addresses[0];
-  			$destination = $datas->destination_addresses[0];
-  	    	if ($datas->rows[0]->elements[0]->status != "OK")
-  	    		$distance = "Aucun itinéraire possible";
-  	    	else
-  				$distance = $datas->rows[0]->elements[0]->distance->text . " - " . $datas->rows[0]->elements[0]->duration->text;
-  		}
-  	    ?>
+        echo $args['before_title'];
+        echo apply_filters('widget_title', $instance['title']);
+        echo $args['after_title'];
+        $distance = "";
+        $origin = "";
+        $destination = "";
+        if (isset($_POST['alvi_origin']) && isset($_POST['alvi_destination'])) {
+        	$datas = $this->get_datas_from_google($_POST['alvi_origin'], $_POST['alvi_destination']);
+        	$origin = $datas->origin_addresses[0];
+          $destination = $datas->destination_addresses[0];
+          if ($datas->rows[0]->elements[0]->status != "OK")
+        		$distance = "Aucun itinéraire possible";
+        	else
+            $distance = $datas->rows[0]->elements[0]->distance->text . " - " . $datas->rows[0]->elements[0]->duration->text;
+        }
+        ?>
   	        <p>
   	            <label for="alvi_origin">Départ :</label>
   	            <input id="alvi_origin" name="alvi_origin" type="text" placeholder="Provenance" value="<?php echo $origin; ?>" onkeypress="if(event.keyCode==13) {codeAddress(); event.preventDefault()}"/>
