@@ -29,31 +29,31 @@ class AlviMaps_Admin {
 
 	public function centralPointHtml() {
 		?>
-		<input type="text" name="centralPoint" id="alvi_admin" value=<?php echo "\"". get_option('centralPoint') . "\""?> />
+		<input type="text" name="centralPoint" id="alvi_admin" value="<?php echo get_option('centralPoint') ?>" />
 		<?php
 	}
 
 	public function dailyPriceHtml() {
 		?>
-		<input type="text" name="dailyPrice" id="dailyPrice" value=<?php echo "\"". get_option('dailyPrice') . "\""?> />
+		<input type="text" name="dailyPrice" id="dailyPrice" value="<?php echo get_option('dailyPrice') ?>" />
 		<?php
 	}
 
 	public function nightlyPriceHtml() {
 		?>
-		<input type="text" name="nightlyPrice" id="nightlyPrice" value=<?php echo "\"". get_option('nightlyPrice') . "\""?> />
+		<input type="text" name="nightlyPrice" id="nightlyPrice" value="<?php echo get_option('nightlyPrice') ?>" />
 		<?php
 	}
 
 	public function dayBeginsAtHtml() {
 		?>
-		<input type="text" name="dayBeginsAt" id="dayBeginsAt" value=<?php echo "\"". get_option('dayBeginsAt') . "\""?> />
+		<input type="text" name="dayBeginsAt" id="dayBeginsAt" value="<?php echo get_option('dayBeginsAt') ?>" />
 		<?php
 	}
 
 	public function dayEndsAtHtml() {
 		?>
-		<input type="text" name="dayEndsAt" id="dayEndsAt" value=<?php echo "\"". get_option('dayEndsAt') . "\""?> />
+		<input type="text" name="dayEndsAt" id="dayEndsAt" value="<?php echo get_option('dayEndsAt') ?>" />
 		<?php
 	}
 

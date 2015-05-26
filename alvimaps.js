@@ -9,26 +9,32 @@ function initialize() {
   bounds = new google.maps.LatLngBounds(null);
   geocoder = new google.maps.Geocoder();
 
-  var mapElement = document.getElementById('map-canvas');
-  if(mapElement !== null)
-  {
-    var mapOptions = {
-      zoom: 18,
-      center: new google.maps.LatLng(43.5880681, 7.0410248),
-      disableDefaultUI: true
-    };
-    map = new google.maps.Map(mapElement, mapOptions);
-  }
-  var input = document.getElementById('alvi_origin');
-  var input2 = document.getElementById('alvi_destination');
-  var input3 = document.getElementById('alvi_admin');
+  var centralPoint = document.getElementById('centralPoint').value;
 
-  if(input !== null)
-    new google.maps.places.Autocomplete(input);
-  if(input2 !== null)
-    new google.maps.places.Autocomplete(input2);
-  if(input3 !== null)
-    new google.maps.places.Autocomplete(input3);
+  getLocation(centralPoint, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var mapElement = document.getElementById('map-canvas');
+        if(mapElement !== null && location !== null)
+        {
+          var mapOptions = {
+            zoom: 12,
+            center: results[0].geometry.location,
+            disableDefaultUI: true
+          };
+          map = new google.maps.Map(mapElement, mapOptions);
+        }
+        var input = document.getElementById('alvi_origin');
+        var input2 = document.getElementById('alvi_destination');
+        var input3 = document.getElementById('alvi_admin');
+
+        if(input !== null)
+          new google.maps.places.Autocomplete(input);
+        if(input2 !== null)
+          new google.maps.places.Autocomplete(input2);
+        if(input3 !== null)
+          new google.maps.places.Autocomplete(input3);
+      }
+    });
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -48,7 +54,8 @@ function codeAddress() {
          if (response.rows[0].elements[0].status != "OK")
         document.getElementById('alvi_distance').innerHTML = "Aucun itinéraire trouvé entre ces deux destinations";
       else {
-        var price = (parseFloat(response.rows[0].elements[0].distance.value) * 1.5) / 1000;
+        var multiplifier = parseInt(document.getElementById('multiplifier').value);
+        var price = (parseFloat(response.rows[0].elements[0].distance.value) * multiplifier) / 1000;
 
         document.getElementById('alvi_distance').innerHTML = response.rows[0].elements[0].distance.text + " - " + response.rows[0].elements[0].duration.text + ' - ' + price.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
       }
@@ -63,16 +70,21 @@ function codeAddress() {
   setTimeout(function() { map.fitBounds( bounds ); }, 400);
 }
 
+function getLocation(address, callback) {
+  geocoder.geocode({ 'address': address}, callback);
+}
+
 function getMarker(address) {
-  geocoder.geocode( { 'address': address}, function(results, status) {
+  getLocation(address, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-          var marker = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location
-          });
-          markers.push(marker);
-          bounds.extend(marker.position);
-        }
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+
+        markers.push(marker);
+        bounds.extend(marker.position);
+      }
     });
 }
 
