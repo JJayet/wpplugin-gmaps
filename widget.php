@@ -25,6 +25,7 @@
   	            <input id="alvi_origin" name="alvi_origin" type="text" placeholder="Provenance" value="<?php echo $origin; ?>" onkeypress="if(event.keyCode==13) {codeAddress(); event.preventDefault()}"/>
   	            <label for="alvi_destination">Arrivée :</label>
   	            <input id="alvi_destination" name="alvi_destination" type="text" placeholder="Destination" value="<?php echo $destination; ?>" onkeypress="if(event.keyCode==13) {codeAddress(); event.preventDefault()}" />
+                <input type="hidden" id="countryLimit" value="<? echo get_option('countryLimit');?>" />
                 <input type="hidden" id="centralPoint" value="<? echo get_option('centralPoint');?>" />
                 <input type="hidden" id="multiplifier" value="<? echo get_option('dailyPrice');?>" />
   	            <label id="alvi_distance"></label>

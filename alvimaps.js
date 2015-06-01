@@ -33,12 +33,25 @@ function initialize() {
   var input2 = document.getElementById('alvi_destination');
   var input3 = document.getElementById('alvi_admin');
 
+  var countryLimitationElem = document.getElementById('countryLimit');
+  var optionsAuto;
+  if(countryLimitationElem !== null)
+  {
+    var countryLimitation = countryLimitationElem.value;
+    if(countryLimitation !== null)
+      optionsAuto = {
+        componentRestrictions: {
+            country: countryLimitation
+        }
+      };
+  }
+
   if(input !== null)
-    new google.maps.places.Autocomplete(input);
+    new google.maps.places.Autocomplete(input, optionsAuto);
   if(input2 !== null)
-    new google.maps.places.Autocomplete(input2);
+    new google.maps.places.Autocomplete(input2, optionsAuto);
   if(input3 !== null)
-    new google.maps.places.Autocomplete(input3);
+    new google.maps.places.Autocomplete(input3, optionsAuto);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
